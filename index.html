@@ -37,29 +37,26 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="top on-black">
-  <div class="wrap">
+<header class="top">
+  <div class="head-wrap">
+    <a class="brand" href="./"><img src="images/logo.png" width="298" height="175" alt="Computer Angels"></a>
+    <p class="top-phone">Call us: <a href="tel:+442077360800">020 7736 0800</a>
+      <span class="top-hours">Mon–Fri 9–6 · Sat 9:30–5:30</span></p>
     <div class="top-actions">
-      <a class="btn alt" href="https://my.anydesk.com/download/arOEVgb1/ComputerAngels_AnyDesk.exe">Remote support Windows</a>
-      <a class="btn alt" href="https://my.anydesk.com/v2/api/v2/custom-clients/downloads/public/OZIDOPMDYUPH/ComputerAngelsAnyDesk.dmg">Remote support Mac</a>
-    </div>
-    <div class="top-contact">
-      <a class="top-phone" href="tel:+442077360800">020 7736 0800</a>
-      <span class="top-hours">Mon–Fri 9–6 · Sat 9:30–5:30</span>
+      <a href="https://my.anydesk.com/download/arOEVgb1/ComputerAngels_AnyDesk.exe">Remote support Windows</a>
+      <a href="https://my.anydesk.com/v2/api/v2/custom-clients/downloads/public/OZIDOPMDYUPH/ComputerAngelsAnyDesk.dmg">Remote support Mac</a>
     </div>
   </div>
 </header>
 
-<nav class="nav" aria-label="Main">
-  <div class="wrap">
-    <a class="brand" href="./"><img src="images/logo.png" width="298" height="175" alt="Computer Angels"></a>
-    <ul>
+<nav class="nav" id="nav" aria-label="Main">
+  <div class="head-wrap">
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-list" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul id="nav-list">
       <li><a href="./" aria-current="page">Home</a></li>
-      <li><a href="business-user-computer-support-south-west-london.html">Business</a></li>
-      <li><a href="home-user-computer-support-fulham-putney-london.html">Home users</a></li>
-      <li><a href="computer-repairs-fulham.html">Repairs</a></li>
-      <li><a href="computer-angels-testimonials.html">Reviews</a></li>
-      <li><a href="about-computer-angels-computer-support.html">About</a></li>
+      <li><a href="home-user-computer-support-fulham-putney-london.html">Home User</a></li>
+      <li><a href="business-user-computer-support-south-west-london.html">Small Business User</a></li>
+      <li><a href="about-computer-angels-computer-support.html">About Us</a></li>
       <li><a href="contact-computer-angels.html">Contact</a></li>
     </ul>
   </div>
@@ -212,13 +209,7 @@
   </div>
 </footer>
 
-<script>
-  // Respect "reduce motion": show the still banner instead of the looping video.
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    var v = document.getElementById('banner-video');
-    v.removeAttribute('autoplay'); v.pause();
-  }
-</script>
+<script src="js/site.js"></script>
 <script src="https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
 </body>
 </html>

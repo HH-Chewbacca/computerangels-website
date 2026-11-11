@@ -9,7 +9,6 @@
 
 :root {
   --yellow: #fbed13; /* sampled from the logo so the nav bar bleeds into it */
-  --logo-w: 150px;
   --yellow-soft: #fdf8a8;
   --black: #111111;
   --ink: #26272f;
@@ -64,26 +63,54 @@ p { margin: 0 0 14px; }
 .on-black .btn.ghost { color: var(--yellow); border-color: var(--yellow); }
 .on-black .btn.ghost:hover, .on-black .btn.ghost:focus-visible { background: var(--yellow); color: var(--black); }
 
-/* Header: the logo straddles the black bar and the yellow nav bar.
-   The logo PNG is 298x175: black top 44% (COMPUTER), yellow bottom 56% (ANGELS).
-   The nav bar is exactly as tall as the yellow part, so the two merge. */
-.top { background: #000; color: var(--white); }
-.top .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 10px 20px; padding-top: 12px; padding-bottom: 10px; min-height: calc(var(--logo-w) * 0.2584 + 8px); }
-.top-contact { text-align: right; }
-.top-phone { display: block; font-family: var(--display); font-size: 1.7rem; line-height: 1.1; color: var(--yellow); text-decoration: none; }
-.top-phone:hover { color: var(--white); }
-.top-hours { font-size: 0.82rem; color: #d6d6d6; }
-.top-actions { display: flex; gap: 10px; flex-basis: 100%; }
-.top-actions .btn { flex: 1; padding: 9px 8px; font-size: 0.88rem; }
+/* Header, laid out like the old site.
+   Wide screens: the logo (298x175, shown at natural size) straddles the black bar and the
+   yellow nav bar. Its black top is 77px (COMPUTER) and its yellow bottom 98px (ANGELS),
+   so the bars are sized to match and the logo's yellow bleeds into the nav bar.
+   Narrower: the whole logo sits centred on black, with phone and buttons stacked under it.
+   Narrowest: the menu collapses behind a hamburger button. */
+.head-wrap { max-width: 1400px; margin: 0 auto; padding: 0 15px; position: relative; }
 
-.nav { background: var(--yellow); border-bottom: 3px solid #000; }
-.nav .wrap { position: relative; }
-.brand { position: absolute; bottom: 0; left: calc(16px - var(--logo-w) * 0.02); width: var(--logo-w); line-height: 0; }
+.top { background: #000; color: var(--white); }
+.top .head-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; padding-top: 14px; padding-bottom: 16px; text-align: center; }
+.brand { display: block; width: min(298px, 72vw); line-height: 0; }
 .brand img { width: 100%; height: auto; }
-.nav ul { list-style: none; margin: 0 0 0 calc(var(--logo-w) + 6px); padding: 0; display: flex; gap: 2px; overflow-x: auto; -webkit-overflow-scrolling: touch; height: calc(var(--logo-w) * 0.3289); }
-.nav li { display: flex; }
-.nav a { display: flex; align-items: center; padding: 0 12px; font-weight: 700; font-size: 0.95rem; text-decoration: none; color: var(--black); white-space: nowrap; }
-.nav a:hover, .nav a[aria-current="page"] { background: #000; color: var(--yellow); }
+.top-phone { font-weight: 700; font-size: 1.25rem; line-height: 1.2; color: var(--white); }
+.top-phone a { color: var(--yellow); text-decoration: none; white-space: nowrap; }
+.top-phone a:hover { color: var(--white); }
+.top-hours { display: block; font-weight: 400; font-size: 0.8rem; color: #cfcfcf; margin-top: 2px; }
+.top-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.top-actions a { background: var(--yellow); color: #000; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.02em; text-transform: uppercase; text-decoration: none; padding: 8px 9px; white-space: nowrap; }
+.top-actions a:hover, .top-actions a:focus-visible { background: var(--white); }
+
+.nav { background: var(--yellow); }
+.nav .head-wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; min-height: 54px; }
+.nav-toggle { display: inline-flex; flex-direction: column; justify-content: center; gap: 5px; width: 46px; height: 38px; padding: 0 10px; background: transparent; border: 1px solid #000; border-radius: 4px; cursor: pointer; }
+.nav-toggle span { display: block; height: 2px; background: #000; }
+.nav ul { list-style: none; margin: 0; padding: 0 0 8px; display: none; flex-direction: column; flex-basis: 100%; }
+.nav.open ul { display: flex; }
+.nav a { display: block; padding: 11px 6px; font-weight: 700; font-size: 1.05rem; text-decoration: none; color: #000; white-space: nowrap; border-top: 1px solid rgba(0,0,0,0.12); }
+.nav a:hover, .nav a:focus-visible { background: #000; color: var(--yellow); }
+
+/* Menu fits in a row: no hamburger */
+@media (min-width: 640px) {
+  .nav-toggle { display: none; }
+  .nav .head-wrap { justify-content: center; }
+  .nav ul, .nav.open ul { display: flex; flex-direction: row; flex-basis: auto; padding: 0; }
+  .nav a { padding: 16px 20px; border-top: 0; border-left: 1px solid rgba(0,0,0,0.08); }
+  .nav li:last-child a { border-right: 1px solid rgba(0,0,0,0.08); }
+}
+
+/* Wide: logo straddles the two bars, as on the old site */
+@media (min-width: 1000px) {
+  .top .head-wrap { flex-direction: row; justify-content: flex-end; gap: 24px; height: 77px; padding: 0 5px 0 310px; text-align: left; }
+  .top .brand { position: absolute; left: 0; top: 0; width: 298px; z-index: 2; }
+  .top-phone { margin: 0 auto; font-size: 1.3rem; text-align: center; }
+  .top-actions { flex-wrap: nowrap; }
+  .nav .head-wrap { justify-content: flex-end; height: 98px; min-height: 0; align-items: flex-start; padding: 0 44px 0 310px; }
+  .nav ul, .nav.open ul { height: 74px; }
+  .nav a { display: flex; align-items: center; height: 100%; padding: 0 24px; font-size: 1.1rem; }
+}
 
 /* Banner video (kept from the old site) */
 .banner { background: var(--yellow); border-bottom: 3px solid var(--black); }
@@ -147,12 +174,6 @@ p { margin: 0 0 14px; }
 
 @media (min-width: 720px) {
   .wrap { padding: 0 24px; }
-  :root { --logo-w: 200px; }
-  .brand { left: calc(24px - var(--logo-w) * 0.02); }
-  .nav ul { margin-left: calc(var(--logo-w) + 16px); justify-content: flex-end; }
-  .top-actions { flex-basis: auto; }
-  .top-actions .btn { flex: none; white-space: nowrap; padding: 10px 16px; font-size: 0.95rem; }
-  .top-phone { font-size: 2rem; }
   .door-grid { grid-template-columns: repeat(3, 1fr); }
   .svc-grid { grid-template-columns: repeat(2, 1fr); gap: 20px 32px; }
   .strip .wrap { grid-template-columns: 1fr auto; }
