@@ -278,3 +278,34 @@ p { margin: 0 0 14px; }
 .banner { position: relative; }
 .banner-toggle { position: absolute; right: 8px; bottom: 8px; font: inherit; font-size: 0.8rem; font-weight: 700; padding: 6px 10px; min-height: 28px; background: #000; color: #fff; border: 1px solid #fff; border-radius: 4px; cursor: pointer; opacity: 0.85; }
 .banner-toggle:hover, .banner-toggle:focus-visible { opacity: 1; }
+
+/* Home page: Guardian Angel band is always on black */
+.ga-home .btn.alt:hover, .ga-home .btn.alt:focus-visible { background: var(--white); }
+.calc-cta { padding: 14px 16px; border-top: 1px solid var(--line); }
+.calc-cta .btn { display: block; }
+@media (min-width: 720px) { .svc-grid.three { grid-template-columns: repeat(3, 1fr); } }
+
+/* Call bar fixed to the bottom of the screen on phones */
+.callbar { display: none; }
+@media (max-width: 639px) {
+  .callbar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: #000; border-top: 2px solid var(--yellow); padding: 8px; gap: 8px; padding-bottom: calc(8px + env(safe-area-inset-bottom)); }
+  .callbar a { flex: 1; text-align: center; font-weight: 700; font-size: 0.95rem; text-decoration: none; padding: 11px 6px; border-radius: 6px; color: var(--yellow); border: 2px solid var(--yellow); white-space: nowrap; }
+  .callbar a.call { background: var(--yellow); color: #000; }
+  body { padding-bottom: 66px; }
+  html { scroll-padding-bottom: 80px; }
+}
+@media print { .callbar { display: none; } }
+
+/* Postcode checker */
+.pc-check { margin: 16px 0; padding: 14px; background: var(--grey); border: 1px solid var(--line); border-radius: 8px; max-width: 420px; }
+.pc-check label { display: block; font-weight: 700; margin-bottom: 6px; }
+.pc-row { display: flex; gap: 8px; }
+.zones .wrap > * { min-width: 0; }
+.pc-row input { flex: 1; min-width: 0; width: 100%; font: inherit; text-transform: uppercase; padding: 10px 12px; border: 2px solid #000; border-radius: 6px; background: var(--white); color: var(--ink); }
+.pc-row input::placeholder { text-transform: none; color: #6b6c75; }
+.pc-row .btn { font: inherit; font-weight: 700; cursor: pointer; padding: 10px 16px; }
+.pc-result { margin: 10px 0 0; font-weight: 700; }
+.pc-result:empty { display: none; }
+.pc-list { margin: 0 0 14px; max-width: 60ch; }
+.pc-list summary { cursor: pointer; font-weight: 700; padding: 6px 0; }
+.pc-list p { font-size: 0.92rem; margin: 8px 0; }
