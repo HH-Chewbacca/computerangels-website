@@ -234,3 +234,13 @@ p { margin: 0 0 14px; }
   .tick-grid { grid-template-columns: repeat(2, 1fr); }
   .form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 }
+
+/* Guardian Angel calculator */
+.calc-form { padding: 6px 16px 14px; display: grid; gap: 10px; }
+.calc-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.calc-row label { font-weight: 700; }
+.calc-row small { display: block; font-weight: 400; color: #55565f; font-size: 0.85rem; }
+.calc-row input { width: 96px; font: inherit; font-weight: 700; text-align: right; padding: 9px 10px; border: 2px solid #000; border-radius: 6px; }
+.calc-row input:focus { outline: 3px solid var(--yellow); outline-offset: 1px; }
+.calc .calc-total th, .calc .calc-total td { background: var(--yellow); font-weight: 700; }
+.calc .calc-total td { font-family: var(--display); font-weight: 400; font-size: 1.9rem; line-height: 1.1; }

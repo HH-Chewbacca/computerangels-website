@@ -49,3 +49,22 @@
       .then(function () { btn.disabled = false; });
   });
 })();
+
+// Guardian Angel calculator: £30 per seat + £200 per server, per month, plus VAT.
+(function () {
+  var seats = document.getElementById('ga-seats');
+  var servers = document.getElementById('ga-servers');
+  if (!seats || !servers) return;
+  var SEAT = 30, SERVER = 200, VAT = 0.2;
+  var num = function (el) { var n = Math.floor(Number(el.value)); return n > 0 ? Math.min(n, Number(el.max)) : 0; };
+  var gbp = function (n) { return '£' + n.toLocaleString('en-GB', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 }); };
+  var update = function () {
+    var net = num(seats) * SEAT + num(servers) * SERVER;
+    document.getElementById('ga-net').textContent = gbp(net);
+    document.getElementById('ga-vat').textContent = gbp(net * VAT);
+    document.getElementById('ga-gross').textContent = gbp(net * (1 + VAT));
+  };
+  seats.addEventListener('input', update);
+  servers.addEventListener('input', update);
+  update();
+})();
