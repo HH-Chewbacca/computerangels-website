@@ -247,3 +247,18 @@ p { margin: 0 0 14px; }
 .callout { border-left: 6px solid var(--yellow); background: var(--grey); padding: 14px 16px; margin: 22px 0; max-width: 60ch; border-radius: 0 6px 6px 0; }
 .callout h3 { margin: 0 0 6px; }
 .callout p { margin: 0; }
+
+/* Guardian Angel for home */
+.ga-home { background: #000; color: var(--white); padding: 38px 0; border-top: 6px solid var(--yellow); border-bottom: 6px solid var(--yellow); }
+.ga-home h2 { color: var(--yellow); }
+.ga-home a { color: var(--yellow); }
+.eyebrow { font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.85rem; color: var(--yellow); margin: 0 0 8px; }
+.ga-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 8px; }
+.ga-list li { padding-left: 30px; position: relative; }
+.ga-list li::before { content: ""; position: absolute; left: 4px; top: 0.35em; width: 12px; height: 7px; border-left: 3px solid var(--yellow); border-bottom: 3px solid var(--yellow); transform: rotate(-45deg); }
+.ga-price { background: var(--ink); border: 2px solid var(--yellow); border-radius: 8px; padding: 22px; text-align: center; }
+.ga-amount { font-family: var(--display); font-size: 4rem; line-height: 1; color: var(--yellow); margin: 0 0 6px; }
+.ga-amount span { font-size: 1.4rem; color: var(--white); }
+.ga-sub { font-size: 0.92rem; color: #d6d6d6; margin: 0 0 16px; }
+.ga-price .btn { display: block; font-size: 1.1rem; margin-bottom: 14px; border-color: var(--yellow); }
+.ga-price .ga-sub:last-child { margin-bottom: 0; }
