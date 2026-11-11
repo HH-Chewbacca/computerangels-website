@@ -1,0 +1,15 @@
+# Computer Angels website
+
+Public website for Computer Angels Ltd (computerangels.co.uk).
+
+- Plain HTML and CSS. No build step, no framework.
+- Hosted on GitHub Pages from `main` (root).
+- Forms post to Web3Forms. The access key in the HTML is public by design.
+- Page file names match the old site so existing addresses keep working.
+- AngelSys (the internal CRM) is a separate system. This site only links to it from the footer.
+
+## Before launch
+
+- Remove `<meta name="robots" content="noindex">` from every page.
+- Add a `CNAME` file containing `www.computerangels.co.uk`.
+- Only change the web DNS records (apex and `www`). Leave mail and Resend records alone.
