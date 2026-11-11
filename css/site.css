@@ -244,3 +244,4 @@ p { margin: 0 0 14px; }
 .calc-row input:focus { outline: 3px solid var(--yellow); outline-offset: 1px; }
 .calc .calc-total th, .calc .calc-total td { background: var(--yellow); font-weight: 700; }
 .calc .calc-total td { font-family: var(--display); font-weight: 400; font-size: 1.9rem; line-height: 1.1; }
+.prose h3 { margin-top: 20px; }
