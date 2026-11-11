@@ -31,7 +31,7 @@ body {
   color: var(--ink);
   background: var(--white);
 }
-img, video { max-width: 100%; display: block; }
+img, video { max-width: 100%; height: auto; display: block; }
 a { color: inherit; }
 .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 16px; }
 .skip { position: absolute; left: -9999px; }
