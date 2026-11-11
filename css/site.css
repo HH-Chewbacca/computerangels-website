@@ -244,3 +244,6 @@ p { margin: 0 0 14px; }
 .calc .calc-total th, .calc .calc-total td { background: var(--yellow); font-weight: 700; }
 .calc .calc-total td { font-family: var(--display); font-weight: 400; font-size: 1.9rem; line-height: 1.1; }
 .prose h3 { margin-top: 20px; }
+.callout { border-left: 6px solid var(--yellow); background: var(--grey); padding: 14px 16px; margin: 22px 0; max-width: 60ch; border-radius: 0 6px 6px 0; }
+.callout h3 { margin: 0 0 6px; }
+.callout p { margin: 0; }
