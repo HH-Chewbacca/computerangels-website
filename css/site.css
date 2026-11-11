@@ -170,7 +170,6 @@ p { margin: 0 0 14px; }
 .foot p { margin: 0 0 8px; }
 .foot .links { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-bottom: 12px; }
 .foot .areas { color: #b9b9c2; }
-.foot .staff { opacity: 0.75; }
 
 @media (min-width: 720px) {
   .wrap { padding: 0 24px; }

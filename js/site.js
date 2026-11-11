@@ -31,7 +31,7 @@
     e.preventDefault();
     var key = form.elements['access_key'].value;
     if (!key || key.indexOf('YOUR_') === 0) {
-      say('err', 'The online form is not switched on yet. Please call 020 7736 0800 or email angels@computerangels.co.uk.');
+      say('err', 'The online form is not switched on yet. Please call 020 7736 0800.');
       return;
     }
     // Subject starts with the customer's name so it threads in the office mailbox.
