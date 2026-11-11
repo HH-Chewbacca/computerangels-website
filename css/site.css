@@ -262,3 +262,12 @@ p { margin: 0 0 14px; }
 .ga-sub { font-size: 0.92rem; color: #d6d6d6; margin: 0 0 16px; }
 .ga-price .btn { display: block; font-size: 1.1rem; margin-bottom: 14px; border-color: var(--yellow); }
 .ga-price .ga-sub:last-child { margin-bottom: 0; }
+
+/* Legal pages, misc */
+.legal { max-width: 75ch; }
+.legal h2 { font-size: 1.5rem; margin-top: 28px; }
+.legal h3 { margin-top: 18px; }
+.legal hr { border: 0; border-top: 1px solid var(--line); margin: 24px 0; }
+.rates td a { font-weight: 700; }
+.ga-price .btn + .btn { margin-top: -4px; }
+.rates .foot-note { display: block; }
