@@ -11,6 +11,8 @@ Public website for Computer Angels Ltd (computerangels.co.uk).
 
 ## Before launch
 
+- Have a solicitor check `terms.html` (plain-English redraft, Nov 2026) and `privacy-policy.html`.
+- Optional: add the ICO registration number to the privacy policy.
 - Remove `<meta name="robots" content="noindex">` from every page.
 - Add a `CNAME` file containing `www.computerangels.co.uk`.
 - Only change the web DNS records (apex and `www`). Leave mail and Resend records alone.
