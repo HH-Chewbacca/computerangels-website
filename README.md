@@ -6,7 +6,8 @@ Public website for Computer Angels Ltd (computerangels.co.uk).
 - Hosted on GitHub Pages from `main` (root).
 - Forms post to Web3Forms. The access key in the HTML is public by design.
 - Page file names match the old site so existing addresses keep working.
-- AngelSys (the internal CRM) is a separate system. This site only links to it from the footer.
+- AngelSys (the internal CRM) is a separate system. This site does not link to it or talk to it.
+- No email addresses on the site. Enquiries go through the contact form.
 
 ## Before launch
 
