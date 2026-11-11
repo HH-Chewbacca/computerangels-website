@@ -8,8 +8,9 @@
 }
 
 :root {
-  --yellow: #ffd500;
-  --yellow-soft: #fff3b0;
+  --yellow: #fbed13; /* sampled from the logo so the nav bar bleeds into it */
+  --logo-w: 150px;
+  --yellow-soft: #fdf8a8;
   --black: #111111;
   --ink: #26272f;
   --slate: #464658;
@@ -63,21 +64,26 @@ p { margin: 0 0 14px; }
 .on-black .btn.ghost { color: var(--yellow); border-color: var(--yellow); }
 .on-black .btn.ghost:hover, .on-black .btn.ghost:focus-visible { background: var(--yellow); color: var(--black); }
 
-/* Header */
-.top { background: var(--black); color: var(--white); }
-.top .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; padding-top: 12px; padding-bottom: 12px; }
-.brand img { width: 150px; height: auto; }
+/* Header: the logo straddles the black bar and the yellow nav bar.
+   The logo PNG is 298x175: black top 44% (COMPUTER), yellow bottom 56% (ANGELS).
+   The nav bar is exactly as tall as the yellow part, so the two merge. */
+.top { background: #000; color: var(--white); }
+.top .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 10px 20px; padding-top: 12px; padding-bottom: 10px; min-height: calc(var(--logo-w) * 0.2584 + 8px); }
 .top-contact { text-align: right; }
 .top-phone { display: block; font-family: var(--display); font-size: 1.7rem; line-height: 1.1; color: var(--yellow); text-decoration: none; }
 .top-phone:hover { color: var(--white); }
 .top-hours { font-size: 0.82rem; color: #d6d6d6; }
 .top-actions { display: flex; gap: 10px; flex-basis: 100%; }
-.top-actions .btn { flex: 1; padding: 11px 10px; font-size: 0.95rem; }
+.top-actions .btn { flex: 1; padding: 9px 8px; font-size: 0.88rem; }
 
-.nav { background: var(--yellow); border-bottom: 3px solid var(--black); }
-.nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 2px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-.nav a { display: block; padding: 12px 12px; font-weight: 700; font-size: 0.95rem; text-decoration: none; color: var(--black); white-space: nowrap; }
-.nav a:hover, .nav a[aria-current="page"] { background: var(--black); color: var(--yellow); }
+.nav { background: var(--yellow); border-bottom: 3px solid #000; }
+.nav .wrap { position: relative; }
+.brand { position: absolute; bottom: 0; left: calc(16px - var(--logo-w) * 0.02); width: var(--logo-w); line-height: 0; }
+.brand img { width: 100%; height: auto; }
+.nav ul { list-style: none; margin: 0 0 0 calc(var(--logo-w) + 6px); padding: 0; display: flex; gap: 2px; overflow-x: auto; -webkit-overflow-scrolling: touch; height: calc(var(--logo-w) * 0.3289); }
+.nav li { display: flex; }
+.nav a { display: flex; align-items: center; padding: 0 12px; font-weight: 700; font-size: 0.95rem; text-decoration: none; color: var(--black); white-space: nowrap; }
+.nav a:hover, .nav a[aria-current="page"] { background: #000; color: var(--yellow); }
 
 /* Banner video (kept from the old site) */
 .banner { background: var(--yellow); border-bottom: 3px solid var(--black); }
@@ -141,10 +147,11 @@ p { margin: 0 0 14px; }
 
 @media (min-width: 720px) {
   .wrap { padding: 0 24px; }
-  .brand img { width: 190px; }
-  .top-actions { flex-basis: auto; order: 2; }
-  .top-actions .btn { white-space: nowrap; padding: 11px 18px; }
-  .top-contact { order: 3; }
+  :root { --logo-w: 200px; }
+  .brand { left: calc(24px - var(--logo-w) * 0.02); }
+  .nav ul { margin-left: calc(var(--logo-w) + 16px); justify-content: flex-end; }
+  .top-actions { flex-basis: auto; }
+  .top-actions .btn { flex: none; white-space: nowrap; padding: 10px 16px; font-size: 0.95rem; }
   .top-phone { font-size: 2rem; }
   .door-grid { grid-template-columns: repeat(3, 1fr); }
   .svc-grid { grid-template-columns: repeat(2, 1fr); gap: 20px 32px; }
