@@ -11,13 +11,24 @@
   });
 })();
 
-// Respect "reduce motion": show the still banner instead of the looping video.
+// Banner video: a pause button (moving content must be stoppable),
+// and no autoplay for people who ask their device to reduce motion.
 (function () {
   var v = document.getElementById('banner-video');
-  if (v && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  var btn = document.getElementById('banner-toggle');
+  if (!v || !btn) return;
+  var show = function () {
+    btn.textContent = v.paused ? 'Play animation' : 'Pause animation';
+    btn.setAttribute('aria-pressed', v.paused ? 'true' : 'false');
+  };
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     v.removeAttribute('autoplay');
     v.pause();
   }
+  btn.addEventListener('click', function () { if (v.paused) { v.play(); } else { v.pause(); } });
+  v.addEventListener('play', show);
+  v.addEventListener('pause', show);
+  show();
 })();
 
 // Enquiry form: send to Web3Forms without leaving the page.
