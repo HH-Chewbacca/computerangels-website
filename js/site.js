@@ -50,7 +50,7 @@
   });
 })();
 
-// Guardian Angel calculator: £30 per seat + £200 per server, per month, plus VAT.
+// Guardian Angel calculator: £30 per user + £200 per server, per month, plus VAT.
 (function () {
   var seats = document.getElementById('ga-seats');
   var servers = document.getElementById('ga-servers');
