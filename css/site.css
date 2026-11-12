@@ -393,3 +393,18 @@ p { margin: 0 0 14px; }
   .crawl-logo .cl-top span { font-size: 2.6rem; } .crawl-logo .cl-bottom { font-size: 3.7rem; }
   .crawl-stage.run .crawl-logo { animation: none; }
 }
+
+/* Story tuning: logo moves from its first frame; text tapers strongly towards the horizon */
+.crawl-stage { perspective: 300px; perspective-origin: 50% 12%; }
+.crawl-plane { transform: rotateX(46deg); }
+.crawl-text { width: min(94%, 820px); font-size: clamp(1.5rem, 4.4vw, 2.6rem); line-height: 1.5; }
+.crawl-stage::after { height: 34%; background: linear-gradient(#000 35%, rgba(0, 0, 0, 0)); }
+.crawl-stage.run .crawl-logo { animation: crawl-logo 7s cubic-bezier(.12, .5, .45, 1) 4.4s forwards; }
+.crawl-stage.run .crawl-text { animation: crawl-roll 70s linear 8.5s infinite; }
+@keyframes crawl-roll { from { top: 100%; transform: translate(-50%, 0); } to { top: 0; transform: translate(-50%, -125%); } }
+@media (prefers-reduced-motion: reduce) {
+  .crawl-stage { perspective: none; }
+  .crawl-plane { transform: none; }
+  .crawl-text { width: min(84%, 560px); font-size: clamp(1.25rem, 3.6vw, 1.9rem); }
+  .crawl-stage.run .crawl-logo, .crawl-stage.run .crawl-text { animation: none; }
+}
