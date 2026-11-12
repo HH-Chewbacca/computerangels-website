@@ -1,0 +1,13 @@
+// Cloudflare Workers settings for the Computer Angels website (static files only, no code).
+{
+  "name": "computerangels-website",
+  "compatibility_date": "2026-11-12",
+  "assets": {
+    // Publish the repository root as the site.
+    "directory": "./",
+    // Serve pages at their exact .html addresses, as on the old site (no stripping of ".html").
+    "html_handling": "none",
+    // Unknown addresses show 404.html.
+    "not_found_handling": "404-page"
+  }
+}

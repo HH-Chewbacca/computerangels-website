@@ -1,0 +1,6 @@
+# Old addresses that no longer exist, forwarded permanently to their new homes.
+/index.php / 301
+/contactform.php /contact-computer-angels.html 301
+/hardware-software-procurement.html /cloud-backup-livedrive.html 301
+# Serve the home page at the bare address (needed because ".html" stripping is switched off).
+/ /index.html 200

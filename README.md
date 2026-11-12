@@ -3,7 +3,8 @@
 Public website for Computer Angels Ltd (computerangels.co.uk).
 
 - Plain HTML and CSS. No build step, no framework.
-- Hosted on GitHub Pages from `main` (root).
+- Hosted on Cloudflare (Workers static assets) from `main`; settings are in `wrangler.jsonc`, old-address forwards in `_redirects`, and files kept off the public site in `.assetsignore`. GitHub Pages still serves a second preview copy.
+- `html_handling` is `none` on purpose so pages keep their exact `.html` addresses. Do not change it without testing: the default strips `.html` with temporary redirects.
 - Forms post to Web3Forms. The access key in the HTML is public by design.
 - Page file names match the old site so existing addresses keep working.
 - AngelSys (the internal CRM) is a separate system. This site does not link to it or talk to it.
