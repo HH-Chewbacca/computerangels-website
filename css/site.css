@@ -409,3 +409,68 @@ p { margin: 0 0 14px; }
   .crawl-stage.run .crawl-logo, .crawl-stage.run .crawl-text { animation: none; }
 }
 .crawl-text .crawl-end { text-align: center; }
+
+/* A denser starfield for the story: 54 small stars on three overlapping repeat sizes, so no pattern shows */
+.crawl-stage {
+  background-image:
+    radial-gradient(1.7px 1.7px at 46.1% 55.0%, #cfd8ff 50%, transparent 51%),
+    radial-gradient(1.3px 1.3px at 13.7% 89.6%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 35.7% 65.2%, #ffffffaa 50%, transparent 51%),
+    radial-gradient(1px 1px at 51.9% 82.3%, #ffffffcc 50%, transparent 51%),
+    radial-gradient(1.3px 1.3px at 31.4% 86.9%, #dfe6ff 50%, transparent 51%),
+    radial-gradient(2.2px 2.2px at 77.6% 47.5%, #dfe6ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 1.5% 21.7%, #dfe6ffcc 50%, transparent 51%),
+    radial-gradient(2.2px 2.2px at 78.3% 52.4%, #fff 50%, transparent 51%),
+    radial-gradient(1.3px 1.3px at 98.0% 93.9%, #cfd8ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 74.2% 87.5%, #ffffffcc 50%, transparent 51%),
+    radial-gradient(2.2px 2.2px at 78.0% 55.2%, #cfd8ff 50%, transparent 51%),
+    radial-gradient(1.3px 1.3px at 95.7% 93.7%, #fff 50%, transparent 51%),
+    radial-gradient(1.7px 1.7px at 44.5% 66.2%, #cfd8ff 50%, transparent 51%),
+    radial-gradient(1.3px 1.3px at 18.4% 43.6%, #fff 50%, transparent 51%),
+    radial-gradient(2.2px 2.2px at 98.8% 61.6%, #fff 50%, transparent 51%),
+    radial-gradient(2.2px 2.2px at 70.8% 29.3%, #fff 50%, transparent 51%),
+    radial-gradient(1.3px 1.3px at 91.4% 94.6%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 97.6% 86.0%, #dfe6ffcc 50%, transparent 51%),
+    radial-gradient(1px 1px at 16.3% 44.9%, #fff 50%, transparent 51%),
+    radial-gradient(1.7px 1.7px at 88.0% 42.8%, #dfe6ff 50%, transparent 51%),
+    radial-gradient(1.7px 1.7px at 49.7% 46.9%, #dfe6ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 81.0% 66.3%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 49.4% 9.2%, #ffeccbaa 50%, transparent 51%),
+    radial-gradient(1px 1px at 26.9% 34.0%, #ffffffaa 50%, transparent 51%),
+    radial-gradient(1.7px 1.7px at 21.8% 33.1%, #ffeccb 50%, transparent 51%),
+    radial-gradient(1.7px 1.7px at 16.0% 91.6%, #ffeccb 50%, transparent 51%),
+    radial-gradient(2.2px 2.2px at 95.5% 53.0%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 3.0% 7.2%, #ffeccb 50%, transparent 51%),
+    radial-gradient(2.2px 2.2px at 48.2% 69.8%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 23.7% 72.8%, #cfd8ffcc 50%, transparent 51%),
+    radial-gradient(1px 1px at 25.1% 79.0%, #ffffffbb 50%, transparent 51%),
+    radial-gradient(1px 1px at 20.1% 92.4%, #cfd8ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 61.0% 21.6%, #dfe6ffbb 50%, transparent 51%),
+    radial-gradient(1px 1px at 48.2% 25.8%, #ffeccbbb 50%, transparent 51%),
+    radial-gradient(1px 1px at 56.6% 8.7%, #fff 50%, transparent 51%),
+    radial-gradient(1.3px 1.3px at 13.8% 78.4%, #cfd8ff 50%, transparent 51%),
+    radial-gradient(1.3px 1.3px at 50.0% 85.7%, #cfd8ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 52.1% 31.7%, #dfe6ffbb 50%, transparent 51%),
+    radial-gradient(2.2px 2.2px at 94.1% 16.6%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 83.1% 52.0%, #ffffffcc 50%, transparent 51%),
+    radial-gradient(1.7px 1.7px at 93.5% 63.9%, #ffeccb 50%, transparent 51%),
+    radial-gradient(1.3px 1.3px at 68.9% 43.7%, #cfd8ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 73.0% 61.1%, #cfd8ffaa 50%, transparent 51%),
+    radial-gradient(1.7px 1.7px at 84.9% 56.4%, #cfd8ff 50%, transparent 51%),
+    radial-gradient(1.7px 1.7px at 80.6% 44.1%, #fff 50%, transparent 51%),
+    radial-gradient(1.7px 1.7px at 67.0% 31.3%, #dfe6ff 50%, transparent 51%),
+    radial-gradient(1.3px 1.3px at 6.4% 37.9%, #ffeccb 50%, transparent 51%),
+    radial-gradient(1px 1px at 54.5% 36.2%, #ffffffaa 50%, transparent 51%),
+    radial-gradient(1px 1px at 97.1% 1.4%, #cfd8ffcc 50%, transparent 51%),
+    radial-gradient(1.3px 1.3px at 10.5% 9.3%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 39.3% 11.6%, #cfd8ffcc 50%, transparent 51%),
+    radial-gradient(1.3px 1.3px at 38.4% 12.3%, #dfe6ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 61.8% 88.5%, #ffffffcc 50%, transparent 51%),
+    radial-gradient(1px 1px at 8.8% 40.6%, #ffffffcc 50%, transparent 51%);
+  background-size:
+    383px 347px, 521px 463px, 677px 571px, 383px 347px, 521px 463px, 677px 571px, 383px 347px, 521px 463px, 677px 571px, 383px 347px, 521px 463px, 677px 571px, 383px 347px, 521px 463px, 677px 571px, 383px 347px, 521px 463px, 677px 571px, 383px 347px, 521px 463px, 677px 571px, 383px 347px, 521px 463px, 677px 571px, 383px 347px, 521px 463px, 677px 571px, 383px 347px, 521px 463px, 677px 571px, 383px 347px, 521px 463px, 677px 571px, 383px 347px, 521px 463px, 677px 571px, 383px 347px, 521px 463px, 677px 571px, 383px 347px, 521px 463px, 677px 571px, 383px 347px, 521px 463px, 677px 571px, 383px 347px, 521px 463px, 677px 571px, 383px 347px, 521px 463px, 677px 571px, 383px 347px, 521px 463px, 677px 571px;
+}
+/* Fade the story itself into the distance (rather than laying a dark band over the sky), so stars show right to the top */
+.crawl-stage::after { display: none; }
+.crawl-plane { -webkit-mask-image: linear-gradient(transparent 4%, #000 46%); mask-image: linear-gradient(transparent 4%, #000 46%); }
+@media (prefers-reduced-motion: reduce) { .crawl-plane { -webkit-mask-image: none; mask-image: none; } }
