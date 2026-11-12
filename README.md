@@ -12,7 +12,7 @@ Public website for Computer Angels Ltd (computerangels.co.uk).
 
 ## Sound credits
 
-The party sounds on the 404 page are in `audio/`, supplied by Peter (file names suggest Pixabay): party blower by floraphonic, fireworks by DRAGON-STUDIO, applause and cheer by driken5482. Trimmed and re-encoded at 128 kbps.
+The party sounds on the 404 page are in `audio/`, supplied by Peter (file names suggest Pixabay): party blower by floraphonic, fireworks by DRAGON-STUDIO, applause and cheer by driken5482. Trimmed and re-encoded at 128 kbps. The story scene's music is `audio/story-theme.mp3`: "The Path of the Force" by luis_humanoide, first 80 seconds at 96 kbps.
 
 ## Before launch
 

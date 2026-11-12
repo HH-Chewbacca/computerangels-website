@@ -132,39 +132,60 @@
   });
 
   // ---------------------------------------------------------------- two scenes
-  // The fireworks party and the scrolling story. One is picked at random on each
-  // visit, and a button on each swaps to the other.
+  // The fireworks party and the scrolling story take turns: each visit to a
+  // missing page shows the one this visitor did not see last time.
   var crawl = document.getElementById('crawl');
   var crawlBtn = document.getElementById('crawl-motion');
+  var musicBtn = document.getElementById('crawl-sound');
   var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var music = null;
   function showParty() {
     if (crawl) crawl.hidden = true;
     stage.hidden = false;
     if (calm) { motionBtn.textContent = 'Start the party'; motionBtn.setAttribute('aria-pressed', 'true'); }
     else { start(); }
   }
-  function showCrawl() {
-    if (soundOn) soundBtn.click();
-    stop();
-    stage.hidden = true; crawl.hidden = false;
-    // Restart the story from the beginning each time it is shown.
+  function restartCrawl() {
     crawl.classList.remove('paused', 'run');
     void crawl.offsetWidth;
     crawl.classList.add('run');
     crawlBtn.textContent = 'Pause'; crawlBtn.setAttribute('aria-pressed', 'false');
   }
-  if (crawl && crawlBtn) {
+  function showCrawl() {
+    stop();
+    stage.hidden = true; crawl.hidden = false;
+    restartCrawl();
+  }
+  if (crawl && crawlBtn && musicBtn) {
     crawlBtn.addEventListener('click', function () {
       var paused = crawl.classList.toggle('paused');
       crawlBtn.textContent = paused ? 'Play' : 'Pause';
       crawlBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+      if (music && musicBtn.getAttribute('aria-pressed') === 'true') { if (paused) { music.pause(); } else { music.play(); } }
     });
-    var switches = document.querySelectorAll('.scene-switch');
-    for (var i = 0; i < switches.length; i++) {
-      switches[i].addEventListener('click', function () {
-        if (crawl.hidden) { showCrawl(); crawlBtn.focus(); } else { showParty(); motionBtn.focus(); }
-      });
-    }
+    // Music is fetched only when asked for. Turning it on restarts the story so the two begin together.
+    musicBtn.addEventListener('click', function () {
+      var on = musicBtn.getAttribute('aria-pressed') === 'true';
+      if (on) {
+        music.pause();
+        musicBtn.textContent = 'Turn the music on'; musicBtn.setAttribute('aria-pressed', 'false');
+        return;
+      }
+      if (!music) { music = new Audio('/audio/story-theme.mp3'); music.loop = true; music.volume = 0.8; }
+      music.currentTime = 0;
+      var started = music.play();
+      var ok = function () {
+        musicBtn.textContent = 'Turn the music off'; musicBtn.setAttribute('aria-pressed', 'true');
+        if (!calm) restartCrawl();
+      };
+      if (started && started.then) { started.then(ok).catch(function () { musicBtn.textContent = 'Music is not available'; }); } else { ok(); }
+    });
   }
-  if (crawl && crawlBtn && Math.random() < 0.5) { showCrawl(); } else { showParty(); }
+  var useCrawl = Math.random() < 0.5;
+  try {
+    var seen = window.localStorage.getItem('ca-404-last');
+    if (seen === 'party') useCrawl = true; else if (seen === 'story') useCrawl = false;
+    window.localStorage.setItem('ca-404-last', useCrawl ? 'story' : 'party');
+  } catch (e) { /* private browsing: fall back to a coin toss */ }
+  if (crawl && crawlBtn && musicBtn && useCrawl) { showCrawl(); } else { showParty(); }
 })();

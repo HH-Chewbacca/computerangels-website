@@ -378,3 +378,18 @@ p { margin: 0 0 14px; }
 /* keep the buttons readable while text passes behind them */
 .crawl-stage::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 96px; background: linear-gradient(rgba(0, 0, 0, 0), #000 55%); pointer-events: none; z-index: 3; }
 @media (prefers-reduced-motion: reduce) { .crawl-stage::before { display: none; } }
+
+/* The Computer Angels wordmark that flies off into the distance before the story */
+.crawl-logo { position: absolute; z-index: 3; left: 50%; top: 46%; display: flex; flex-direction: column; text-align: center; font-family: var(--display); line-height: 1; transform: translate(-50%, -50%) scale(0); opacity: 0; }
+.crawl-logo .cl-top { display: block; background: #000; color: var(--yellow); padding: 0.14em 0.3em 0; }
+.crawl-logo .cl-top span { display: block; font-size: clamp(3rem, 13vw, 7.5rem); letter-spacing: 0.02em; margin-bottom: -0.09em; }
+.crawl-logo .cl-bottom { display: block; background: var(--yellow); color: #000; font-size: clamp(4.3rem, 18.6vw, 10.7rem); letter-spacing: 0.02em; padding: 0.04em 0.1em 0.08em; }
+.crawl-stage.run .crawl-logo { animation: crawl-logo 8s cubic-bezier(.2, .55, .35, 1) 4.4s both; }
+.crawl-stage.paused .crawl-logo { animation-play-state: paused; }
+.crawl-stage.run .crawl-text { animation-delay: 9s; }
+@keyframes crawl-logo { 0% { opacity: 1; transform: translate(-50%, -50%) scale(1.35); } 85% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.04); } }
+@media (prefers-reduced-motion: reduce) {
+  .crawl-logo { position: static; transform: none; opacity: 1; margin: 0 auto 28px; width: max-content; font-size: 0.4em; }
+  .crawl-logo .cl-top span { font-size: 2.6rem; } .crawl-logo .cl-bottom { font-size: 3.7rem; }
+  .crawl-stage.run .crawl-logo { animation: none; }
+}
