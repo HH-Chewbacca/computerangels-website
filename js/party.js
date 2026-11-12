@@ -1,4 +1,4 @@
-// The "page not found" party: fireworks, party blowers and (only if asked) sound.
+// The "page not found" party: fireworks and (only if asked) sound.
 // No libraries. Sound comes from three short recordings in /audio.
 (function () {
   var canvas = document.getElementById('party-canvas');
@@ -11,9 +11,8 @@
   var W = 0, H = 0, dpr = 1;
   var rockets = [], sparks = [];
   var running = false, soundOn = false, rafId = 0, last = 0;
-  var nextRocket = 0, nextToot = 0, tootSide = 0;
+  var nextRocket = 0, nextToot = 0;
   var COLOURS = ['#fbed13', '#ffffff', '#ff5fa2', '#3fd0ff', '#7dff6b', '#ff9a3c', '#c79bff'];
-  var blowers = stage.querySelectorAll('.blower');
   var rand = function (a, b) { return a + Math.random() * (b - a); };
 
   function resize() {
@@ -70,13 +69,7 @@
         colour: i % 3 === 0 ? second : r.colour, size: rand(1.8, 3.4) });
     }
   }
-  function toot() {
-    var b = blowers[tootSide % blowers.length]; tootSide++;
-    if (!b) return;
-    b.classList.add('toot');
-    setTimeout(function () { b.classList.remove('toot'); }, 650);
-    soundToot();
-  }
+  function toot() { soundToot(); }
   function frame(now) {
     if (!running) return;
     var dt = Math.min((now - last) / 1000, 0.05); last = now;
