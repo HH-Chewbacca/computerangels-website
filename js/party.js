@@ -1,5 +1,5 @@
 // The "page not found" party: fireworks, party blowers and (only if asked) sound.
-// No libraries and no audio files: the sounds are made in the browser.
+// No libraries. Sound comes from three short recordings in /audio.
 (function () {
   var canvas = document.getElementById('party-canvas');
   var stage = document.getElementById('party');
@@ -24,86 +24,43 @@
   }
 
   // ---------------------------------------------------------------- sound
-  var ac = null, master = null, noiseBuf = null;
+  // Three short recordings, fetched only if the visitor turns the sound on.
+  var FILES = { blower: '/audio/party-blower.mp3', fireworks: '/audio/fireworks.mp3', cheer: '/audio/cheer.mp3' };
+  var ac = null, master = null, buffers = {}, loaded = null, bed = null, cheerTimer = 0;
   function audio() {
-    if (ac) return ac;
+    if (loaded) return loaded;
     var AC = window.AudioContext || window.webkitAudioContext;
-    if (!AC) return null;
+    if (!AC || !window.fetch) return (loaded = Promise.reject(new Error('no audio')));
     ac = new AC();
-    master = ac.createGain(); master.gain.value = 0.5; master.connect(ac.destination);
-    noiseBuf = ac.createBuffer(1, ac.sampleRate * 2, ac.sampleRate);
-    var d = noiseBuf.getChannelData(0);
-    for (var i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
-    return ac;
+    master = ac.createGain(); master.gain.value = 0.8; master.connect(ac.destination);
+    loaded = Promise.all(Object.keys(FILES).map(function (name) {
+      return fetch(FILES[name])
+        .then(function (r) { if (!r.ok) throw new Error(name); return r.arrayBuffer(); })
+        .then(function (data) { return new Promise(function (ok, fail) { ac.decodeAudioData(data, ok, fail); }); })
+        .then(function (buf) { buffers[name] = buf; });
+    }));
+    return loaded;
   }
-  function noise(type, freq, q, peak, attack, decay, when) {
-    var t = (when || ac.currentTime);
-    var src = ac.createBufferSource(); src.buffer = noiseBuf; src.loop = true;
-    var f = ac.createBiquadFilter(); f.type = type; f.frequency.value = freq; f.Q.value = q;
-    var g = ac.createGain(); g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(peak, t + attack);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + attack + decay);
-    src.connect(f); f.connect(g); g.connect(master);
-    src.start(t, Math.random()); src.stop(t + attack + decay + 0.05);
-    return f;
+  function play(name, volume, loop, rate) {
+    if (!ac || !buffers[name]) return null;
+    var src = ac.createBufferSource(), g = ac.createGain();
+    src.buffer = buffers[name]; src.loop = !!loop; src.playbackRate.value = rate || 1;
+    g.gain.value = volume; src.connect(g); g.connect(master); src.start();
+    return src;
   }
-  function soundBang() {
-    if (!soundOn || !ac) return;
-    var f = noise('lowpass', 900, 0.7, 0.9, 0.005, 0.5);
-    f.frequency.exponentialRampToValueAtTime(120, ac.currentTime + 0.45);
-    for (var i = 0; i < 6; i++) noise('highpass', 3500, 0.5, 0.12, 0.002, 0.04, ac.currentTime + rand(0.15, 0.9));
-  }
-  function soundWhistle() {
-    if (!soundOn || !ac) return;
-    var t = ac.currentTime, o = ac.createOscillator(), g = ac.createGain();
-    o.type = 'sine'; o.frequency.setValueAtTime(rand(500, 700), t);
-    o.frequency.exponentialRampToValueAtTime(rand(1500, 2100), t + 0.55);
-    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.05, t + 0.1);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.6);
-    o.connect(g); g.connect(master); o.start(t); o.stop(t + 0.65);
-  }
-  function soundToot() {
-    if (!soundOn || !ac) return;
-    var t = ac.currentTime, base = rand(380, 470), len = rand(0.45, 0.7);
-    var f = ac.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = 1300; f.Q.value = 2.5;
-    var g = ac.createGain(); g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(0.5, t + 0.03);
-    g.gain.setValueAtTime(0.5, t + len - 0.08);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + len);
-    var buzz = ac.createOscillator(), buzzGain = ac.createGain();
-    buzz.type = 'sine'; buzz.frequency.value = 38; buzzGain.gain.value = 14;
-    buzz.connect(buzzGain); buzz.start(t); buzz.stop(t + len);
-    [1, 1.012].forEach(function (detune) {
-      var o = ac.createOscillator(); o.type = 'sawtooth';
-      o.frequency.setValueAtTime(base * detune * 0.92, t);
-      o.frequency.linearRampToValueAtTime(base * detune * 1.12, t + 0.12);
-      o.frequency.linearRampToValueAtTime(base * detune, t + len);
-      buzzGain.connect(o.frequency);
-      o.connect(f); o.start(t); o.stop(t + len);
-    });
-    f.connect(g); g.connect(master);
-  }
+  function soundToot() { if (soundOn) play('blower', 0.9, false, rand(0.94, 1.08)); }
   function soundCheer() {
-    if (!soundOn || !ac) return;
-    var t = ac.currentTime;
-    noise('bandpass', 1100, 0.5, 0.22, 0.5, 1.8, t);
-    noise('bandpass', 2400, 0.8, 0.1, 0.7, 1.4, t + 0.1);
-    for (var i = 0; i < 5; i++) {
-      var s = t + rand(0, 1.2), o = ac.createOscillator(), g = ac.createGain(), p = rand(480, 760);
-      o.type = 'triangle'; o.frequency.setValueAtTime(p, s);
-      o.frequency.linearRampToValueAtTime(p * 1.5, s + 0.25);
-      o.frequency.linearRampToValueAtTime(p * 1.1, s + 0.6);
-      g.gain.setValueAtTime(0.0001, s); g.gain.exponentialRampToValueAtTime(0.045, s + 0.08);
-      g.gain.exponentialRampToValueAtTime(0.0001, s + 0.65);
-      o.connect(g); g.connect(master); o.start(s); o.stop(s + 0.7);
-    }
+    if (!soundOn) return;
+    play('cheer', 0.75);
+    clearTimeout(cheerTimer);
+    cheerTimer = setTimeout(function () { if (soundOn && running) soundCheer(); }, rand(11000, 16000));
   }
+  function soundBed() { if (soundOn && !bed) bed = play('fireworks', 0.6, true); }
 
   // ---------------------------------------------------------------- pictures
   function launch() {
     rockets.push({ x: rand(W * 0.12, W * 0.88), y: H + 10, vx: rand(-40, 40), vy: -rand(H * 0.9, H * 1.25),
       targetY: rand(H * 0.12, H * 0.5), colour: COLOURS[Math.floor(Math.random() * COLOURS.length)] });
-    soundWhistle();
   }
   function explode(r) {
     var n = W < 500 ? 46 : 80, second = COLOURS[Math.floor(Math.random() * COLOURS.length)];
@@ -112,7 +69,6 @@
       sparks.push({ x: r.x, y: r.y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: rand(0.9, 1.6), age: 0,
         colour: i % 3 === 0 ? second : r.colour, size: rand(1.8, 3.4) });
     }
-    soundBang();
   }
   function toot() {
     var b = blowers[tootSide % blowers.length]; tootSide++;
@@ -150,25 +106,31 @@
   // ---------------------------------------------------------------- controls
   function start() {
     if (running) return;
+    if (ac && soundOn) ac.resume();
     running = true; resize(); last = performance.now(); nextRocket = last; nextToot = last + 900;
     rafId = requestAnimationFrame(frame);
     motionBtn.textContent = 'Pause the party'; motionBtn.setAttribute('aria-pressed', 'false');
   }
   function stop() {
     running = false; cancelAnimationFrame(rafId);
+    if (ac) ac.suspend();
     motionBtn.textContent = 'Restart the party'; motionBtn.setAttribute('aria-pressed', 'true');
   }
   motionBtn.addEventListener('click', function () { if (running) { stop(); } else { start(); } });
   soundBtn.addEventListener('click', function () {
-    if (!soundOn) {
-      if (!audio()) { soundBtn.textContent = 'Sound is not available'; soundBtn.disabled = true; return; }
-      ac.resume(); soundOn = true;
-      soundBtn.textContent = 'Turn the sound off'; soundBtn.setAttribute('aria-pressed', 'true');
-      start(); soundCheer(); toot();
-    } else {
-      soundOn = false; if (ac) ac.suspend();
+    if (soundOn) {
+      soundOn = false; clearTimeout(cheerTimer); if (ac) ac.suspend();
       soundBtn.textContent = 'Turn the sound on'; soundBtn.setAttribute('aria-pressed', 'false');
+      return;
     }
+    soundBtn.disabled = true; soundBtn.textContent = 'Loading sound\u2026';
+    audio().then(function () {
+      soundOn = true; soundBtn.disabled = false;
+      soundBtn.textContent = 'Turn the sound off'; soundBtn.setAttribute('aria-pressed', 'true');
+      ac.resume(); start(); soundBed(); soundCheer(); toot();
+    }).catch(function () {
+      soundBtn.textContent = 'Sound is not available';
+    });
   });
   window.addEventListener('resize', function () { if (running) resize(); });
   document.addEventListener('visibilitychange', function () {

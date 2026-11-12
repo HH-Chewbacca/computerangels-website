@@ -10,6 +10,10 @@ Public website for Computer Angels Ltd (computerangels.co.uk).
 - AngelSys (the internal CRM) is a separate system. This site does not link to it or talk to it.
 - No email addresses on the site. Enquiries go through the contact form.
 
+## Sound credits
+
+The party sounds on the 404 page are in `audio/`, supplied by Peter (file names suggest Pixabay): party blower by floraphonic, fireworks by DRAGON-STUDIO, applause and cheer by driken5482. Trimmed and re-encoded at 128 kbps.
+
 ## Before launch
 
 - Have a solicitor check `terms.html` (plain-English redraft, Nov 2026) and `privacy-policy.html`.
