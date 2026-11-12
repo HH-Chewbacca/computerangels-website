@@ -146,6 +146,15 @@
   }
   function restartCrawl() {
     crawl.classList.remove('paused', 'run');
+    // Scroll at a steady reading pace however long the story is:
+    // about 0.42 of a line per second, over the stage height plus the text's own length.
+    var text = crawl.querySelector('.crawl-text');
+    if (text) {
+      var line = parseFloat(window.getComputedStyle(text).lineHeight) || 40;
+      var distance = crawl.clientHeight + text.offsetHeight * 1.25;
+      var pace = window.innerWidth < 640 ? 0.56 : 0.42; // narrow screens have shorter lines, so move a little faster
+      text.style.animationDuration = Math.round(distance / (line * pace)) + 's';
+    }
     void crawl.offsetWidth;
     crawl.classList.add('run');
     crawlBtn.textContent = 'Pause'; crawlBtn.setAttribute('aria-pressed', 'false');

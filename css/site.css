@@ -408,3 +408,4 @@ p { margin: 0 0 14px; }
   .crawl-text { width: min(84%, 560px); font-size: clamp(1.25rem, 3.6vw, 1.9rem); }
   .crawl-stage.run .crawl-logo, .crawl-stage.run .crawl-text { animation: none; }
 }
+.crawl-text .crawl-end { text-align: center; }
