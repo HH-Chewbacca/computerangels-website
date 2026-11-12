@@ -313,3 +313,10 @@ p { margin: 0 0 14px; }
 /* Accreditation logos above the footer */
 .badges { background: var(--white); border-top: 1px solid var(--line); padding: 18px 0; }
 .badges .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px 48px; }
+
+/* FAQ */
+.faq-sec .prose { max-width: 75ch; }
+.faq { border: 1px solid var(--line); border-left: 6px solid var(--yellow); border-radius: 6px; margin: 10px 0; background: var(--white); }
+.faq summary { cursor: pointer; font-weight: 700; padding: 13px 14px; }
+.faq[open] summary { border-bottom: 1px solid var(--line); }
+.faq p { margin: 0; padding: 12px 14px; }
