@@ -49,17 +49,38 @@
 
 <main id="main">
 
+  <h1 class="vh">Page not found</h1>
+
   <section class="party" id="party" aria-labelledby="party-h">
     <canvas id="party-canvas" aria-hidden="true"></canvas>
     <div class="party-inner">
       <p class="eyebrow">Page not found</p>
-      <h1 id="party-h">Congratulations!</h1>
+      <h2 id="party-h">Congratulations!</h2>
       <p class="party-lead">You found a page that even we didn't think of.</p>
       <p class="party-sub">But seriously. Isn't getting lost part of the journey?</p>
       <div class="party-actions">
         <button class="btn alt" id="party-sound" type="button" aria-pressed="false">Turn the sound on</button>
         <button class="btn ghost" id="party-motion" type="button" aria-pressed="false">Pause the party</button>
+        <button class="btn ghost scene-switch" type="button">Show me the other one</button>
       </div>
+    </div>
+  </section>
+
+  <section class="crawl-stage" id="crawl" aria-labelledby="crawl-h" hidden>
+    <p class="crawl-intro">A long time ago on a website far, far away&hellip;</p>
+    <div class="crawl-plane">
+      <div class="crawl-text">
+        <p class="crawl-episode">Episode IV</p>
+        <h2 id="crawl-h">A New Page</h2>
+        <p>It is a period of great uncertainty on the website.</p>
+        <p>People apparently typing random addresses are finding themselves exploring new worlds, new life and new civilizations, and boldly going where no man has gone before.</p>
+        <p>Yes, I know. That's from the wrong canon, but we're hardly likely to miss the opportunity to rub the fanboys up the wrong way.</p>
+        <p>Live long and prosper.</p>
+      </div>
+    </div>
+    <div class="crawl-actions">
+      <button class="btn ghost" id="crawl-motion" type="button" aria-pressed="false">Pause</button>
+      <button class="btn ghost scene-switch" type="button">Show me the other one</button>
     </div>
   </section>
 

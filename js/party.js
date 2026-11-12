@@ -131,10 +131,40 @@
     else if (!document.hidden && running) { last = performance.now(); rafId = requestAnimationFrame(frame); }
   });
 
-  // Start the pictures straight away, unless the visitor has asked for less motion.
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    motionBtn.textContent = 'Start the party'; motionBtn.setAttribute('aria-pressed', 'true');
-  } else {
-    start();
+  // ---------------------------------------------------------------- two scenes
+  // The fireworks party and the scrolling story. One is picked at random on each
+  // visit, and a button on each swaps to the other.
+  var crawl = document.getElementById('crawl');
+  var crawlBtn = document.getElementById('crawl-motion');
+  var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function showParty() {
+    if (crawl) crawl.hidden = true;
+    stage.hidden = false;
+    if (calm) { motionBtn.textContent = 'Start the party'; motionBtn.setAttribute('aria-pressed', 'true'); }
+    else { start(); }
   }
+  function showCrawl() {
+    if (soundOn) soundBtn.click();
+    stop();
+    stage.hidden = true; crawl.hidden = false;
+    // Restart the story from the beginning each time it is shown.
+    crawl.classList.remove('paused', 'run');
+    void crawl.offsetWidth;
+    crawl.classList.add('run');
+    crawlBtn.textContent = 'Pause'; crawlBtn.setAttribute('aria-pressed', 'false');
+  }
+  if (crawl && crawlBtn) {
+    crawlBtn.addEventListener('click', function () {
+      var paused = crawl.classList.toggle('paused');
+      crawlBtn.textContent = paused ? 'Play' : 'Pause';
+      crawlBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+    });
+    var switches = document.querySelectorAll('.scene-switch');
+    for (var i = 0; i < switches.length; i++) {
+      switches[i].addEventListener('click', function () {
+        if (crawl.hidden) { showCrawl(); crawlBtn.focus(); } else { showParty(); motionBtn.focus(); }
+      });
+    }
+  }
+  if (crawl && crawlBtn && Math.random() < 0.5) { showCrawl(); } else { showParty(); }
 })();
