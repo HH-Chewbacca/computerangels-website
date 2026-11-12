@@ -132,8 +132,7 @@
   });
 
   // ---------------------------------------------------------------- two scenes
-  // The fireworks party and the scrolling story take turns: each visit to a
-  // missing page shows the one this visitor did not see last time.
+  // The scrolling story and the fireworks party.
   var crawl = document.getElementById('crawl');
   var crawlBtn = document.getElementById('crawl-motion');
   var musicBtn = document.getElementById('crawl-sound');
@@ -181,11 +180,7 @@
       if (started && started.then) { started.then(ok).catch(function () { musicBtn.textContent = 'Music is not available'; }); } else { ok(); }
     });
   }
-  var useCrawl = Math.random() < 0.5;
-  try {
-    var seen = window.localStorage.getItem('ca-404-last');
-    if (seen === 'party') useCrawl = true; else if (seen === 'story') useCrawl = false;
-    window.localStorage.setItem('ca-404-last', useCrawl ? 'story' : 'party');
-  } catch (e) { /* private browsing: fall back to a coin toss */ }
+  // The story is the default. The fireworks are still there for any missing address ending in #party.
+  var useCrawl = window.location.hash !== '#party';
   if (crawl && crawlBtn && musicBtn && useCrawl) { showCrawl(); } else { showParty(); }
 })();
