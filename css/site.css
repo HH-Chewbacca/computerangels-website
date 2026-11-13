@@ -561,3 +561,5 @@ p { margin: 0 0 14px; }
   .top-actions { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); width: 100%; max-width: 400px; }
   .top-actions a { white-space: normal; display: flex; align-items: center; justify-content: center; }
 }
+/* Menu row just after the hamburger disappears: slightly tighter so five links always fit */
+@media (min-width: 640px) and (max-width: 759px) { .nav a { padding: 16px 12px; } }
