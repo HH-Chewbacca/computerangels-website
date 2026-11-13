@@ -31,7 +31,7 @@ The party sounds on the 404 page are in `audio/`, supplied by Peter (file names 
 
 - Have a solicitor check `terms.html` (plain-English redraft, Nov 2026) and `privacy-policy.html`.
 - Optional: add the ICO registration number to the privacy policy.
-- Remove `<meta name="robots" content="noindex">` from every page.
+- Done 13 Nov 2026: the "noindex" tag is removed from every page except `404.html`, which keeps it.
 - Add a `CNAME` file containing `www.computerangels.co.uk`.
 - After launch: submit `sitemap.xml` in Google Search Console and check the Google Business Profile points at the new pages.
 - Only change the web DNS records (apex and `www`). Leave mail and Resend records alone.
