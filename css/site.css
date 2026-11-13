@@ -553,3 +553,7 @@ p { margin: 0 0 14px; }
 
 /* Pause must win over the later "animation:" shorthand rules above, which reset it to running */
 .crawl-stage.paused .crawl-intro, .crawl-stage.paused .crawl-logo, .crawl-stage.paused .crawl-text { animation-play-state: paused !important; }
+
+/* Header: the two remote support buttons are the same width (that of the wider one) */
+.top-actions { display: inline-grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.top-actions a { text-align: center; }
