@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <title>Computer Angels</title>
+  <defs>
+    <linearGradient id="k" gradientUnits="userSpaceOnUse" x1="0" y1="7" x2="0" y2="41">
+      <stop offset="0" stop-color="#3d3d3d"/>
+      <stop offset="1" stop-color="#000000"/>
+    </linearGradient>
+  </defs>
+  <circle cx="24" cy="24" r="24" fill="#faf100"/>
+  <path fill="url(#k)" d="M19.5 7h9A1.5 1.5 0 0 1 30 8.500V18h9.500A1.500 1.500 0 0 1 41 19.500v9A1.500 1.500 0 0 1 39.500 30H30v9.500A1.500 1.500 0 0 1 28.500 41h-9A1.500 1.500 0 0 1 18 39.500V30H8.500A1.500 1.500 0 0 1 7 28.500v-9A1.500 1.500 0 0 1 8.500 18H18V8.500A1.500 1.500 0 0 1 19.500 7z"/>
+</svg>
