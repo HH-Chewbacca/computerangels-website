@@ -352,20 +352,62 @@
     .catch(function () { /* no announcement file, or offline: show nothing */ });
 })();
 
-// Contact page map: nothing is loaded from Google until the visitor presses "Show map".
+// ---------------------------------------------------------------------------
+// Cookie choice. Two extras come from other companies and may set cookies:
+// the live Trustpilot rating and the Google map. Neither loads until the visitor
+// presses Accept. Reject is as easy as Accept, and the choice can be changed from
+// the "Cookie settings" link in every footer.
+// ---------------------------------------------------------------------------
 (function () {
-  var btn = document.getElementById('map-show');
-  var box = document.getElementById('map-box');
-  if (!btn || !box) return;
-  btn.addEventListener('click', function () {
-    var f = document.createElement('iframe');
-    f.className = 'map';
-    f.title = 'Map showing Computer Angels at 160 Munster Road, Fulham';
-    f.setAttribute('loading', 'lazy');
-    f.setAttribute('referrerpolicy', 'no-referrer');
-    f.src = 'https://www.google.com/maps?q=Computer+Angels,+160+Munster+Road,+London+SW6+5RA&output=embed';
-    btn.parentNode.replaceChild(f, btn);
-    box.classList.add('shown');
-    f.focus();
+  var KEY = 'ca-cookies';
+  function get() { try { return window.localStorage.getItem(KEY); } catch (e) { return null; } }
+  function set(v) { try { window.localStorage.setItem(KEY, v); } catch (e) { /* private browsing: ask again next page */ } }
+
+  function loadExtras() {
+    if (document.querySelector('.trustpilot-widget') && !document.getElementById('tp-script')) {
+      var s = document.createElement('script');
+      s.id = 'tp-script'; s.async = true;
+      s.src = 'https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js';
+      document.head.appendChild(s);
+    }
+    var wrap = document.getElementById('map-wrap');
+    if (wrap) {
+      var f = wrap.querySelector('iframe[data-src]');
+      if (f) { f.src = f.getAttribute('data-src'); f.removeAttribute('data-src'); f.hidden = false; }
+      var off = wrap.querySelector('.map-off'); if (off) off.hidden = true;
+    }
+  }
+
+  var bar = null;
+  function showBar() {
+    if (bar) { bar.hidden = false; bar.querySelector('button').focus(); return; }
+    bar = document.createElement('section');
+    bar.className = 'cookie-bar'; bar.setAttribute('aria-label', 'Cookies');
+    var text = document.createElement('p');
+    text.appendChild(document.createTextNode('This site sets no cookies of its own. Two extras from other companies do use them: live Trustpilot ratings and the Google map. Accept to switch those on, or reject and everything else works the same. '));
+    var link = document.createElement('a');
+    link.href = (document.querySelector('.foot a[href$="privacy-policy.html"]') || {}).href || 'privacy-policy.html';
+    link.textContent = 'Privacy policy';
+    text.appendChild(link);
+    var btns = document.createElement('div'); btns.className = 'cookie-btns';
+    var yes = document.createElement('button'); yes.type = 'button'; yes.className = 'cookie-btn'; yes.textContent = 'Accept';
+    var no = document.createElement('button'); no.type = 'button'; no.className = 'cookie-btn'; no.textContent = 'Reject';
+    btns.appendChild(no); btns.appendChild(yes);
+    bar.appendChild(text); bar.appendChild(btns);
+    document.body.appendChild(bar);
+    yes.addEventListener('click', function () { set('yes'); bar.hidden = true; loadExtras(); });
+    no.addEventListener('click', function () {
+      var was = get(); set('no'); bar.hidden = true;
+      if (was === 'yes') window.location.reload(); // switch the extras back off
+    });
+  }
+
+  var choice = get();
+  if (choice === 'yes') loadExtras();
+  else if (choice !== 'no') showBar();
+
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest ? e.target.closest('[data-cookie-settings]') : null;
+    if (t) { e.preventDefault(); showBar(); }
   });
 })();
