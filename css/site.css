@@ -550,3 +550,6 @@ p { margin: 0 0 14px; }
   .psa-strip-name { font-size: 1.35rem; max-width: 9em; }
 }
 @media print { .psa-strip, .psa-dialog { display: none; } }
+
+/* Pause must win over the later "animation:" shorthand rules above, which reset it to running */
+.crawl-stage.paused .crawl-intro, .crawl-stage.paused .crawl-logo, .crawl-stage.paused .crawl-text { animation-play-state: paused !important; }
