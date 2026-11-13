@@ -557,3 +557,7 @@ p { margin: 0 0 14px; }
 /* Header: the two remote support buttons are the same width (that of the wider one) */
 .top-actions { display: inline-grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .top-actions a { text-align: center; }
+@media (max-width: 639px) {
+  .top-actions { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); width: 100%; max-width: 400px; }
+  .top-actions a { white-space: normal; display: flex; align-items: center; justify-content: center; }
+}
