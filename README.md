@@ -3,7 +3,7 @@
 Public website for Computer Angels Ltd (computerangels.co.uk).
 
 - Plain HTML and CSS. No build step, no framework.
-- Hosted on Cloudflare (Workers static assets) from `main`; settings are in `wrangler.jsonc`, old-address forwards in `_redirects`, and files kept off the public site in `.assetsignore`. GitHub Pages still serves a second preview copy.
+- Hosted on Cloudflare (Workers static assets) from `main`; settings are in `wrangler.jsonc`, old-address forwards in `_redirects`, and files kept off the public site in `.assetsignore`. Live at https://www.computerangels.co.uk since 13 Nov 2026; the address without www redirects to it (Cloudflare redirect rule). If GitHub Pages is still switched on for this repo, switch it off.
 - `html_handling` is `none` on purpose so pages keep their exact `.html` addresses. Do not change it without testing: the default strips `.html` with temporary redirects.
 - Forms post to Web3Forms. The access key in the HTML is public by design.
 - Page file names match the old site so existing addresses keep working.
@@ -27,11 +27,11 @@ Everything is in one file: `announcement.txt`.
 
 The party sounds on the 404 page are in `audio/`, supplied by Peter (file names suggest Pixabay): party blower by floraphonic, fireworks by DRAGON-STUDIO, applause and cheer by driken5482. Trimmed and re-encoded at 128 kbps. The story scene's music is `audio/story-theme.mp3`: "The Path of the Force" by luis_humanoide, full length at 96 kbps.
 
-## Before launch
+## Launch notes
 
 - Have a solicitor check `terms.html` (plain-English redraft, Nov 2026) and `privacy-policy.html`.
 - Optional: add the ICO registration number to the privacy policy.
 - Done 13 Nov 2026: the "noindex" tag is removed from every page except `404.html`, which keeps it.
-- Add a `CNAME` file containing `www.computerangels.co.uk`.
-- After launch: submit `sitemap.xml` in Google Search Console and check the Google Business Profile points at the new pages.
+- Checked live 13 Nov 2026: all pages load, old addresses forward, the 404 page works, and repo files (README, wrangler.jsonc, _redirects) are not public.
+- Still to do: submit `sitemap.xml` in Google Search Console and check the Google Business Profile points at the new pages.
 - Only change the web DNS records (apex and `www`). Leave mail and Resend records alone.
