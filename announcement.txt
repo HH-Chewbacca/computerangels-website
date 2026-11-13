@@ -1,0 +1,45 @@
+# ------------------------------------------------------------------
+# COMPUTER ANGELS: PUBLIC SERVICE ANNOUNCEMENT
+#
+# To post an announcement: change the lines below, set "show" to yes,
+# then press "Commit changes". It appears on every page in about a minute.
+# To take it down: set "show" to no and commit.
+#
+# Lines starting with # are notes and are ignored.
+# Keep each item on ONE line. Do not remove the word before the colon.
+# ------------------------------------------------------------------
+
+# yes or no
+show: no
+
+# high      = pops up over the page (use sparingly)
+# moderate  = strip across the top of the page
+# low       = strip across the top of the page
+severity: moderate
+
+# Who is affected. Suggested: Widespread / 365 customers only /
+# Guardian Angel customers / Our shop and phones
+scope: 365 customers only
+
+# Suggested: Ongoing / Being fixed / Resolved
+status: Ongoing
+
+# One short line saying what is affected.
+headline: Microsoft 365 email and Teams are disrupted
+
+# What is happening, in a sentence or two.
+happening: Microsoft is reporting a fault with Microsoft 365. Email and Teams may be slow or unavailable.
+
+# What customers should do (or that they need do nothing).
+todo: Nothing is wrong with your computer and you do not need to call us. We are watching it and will update this notice.
+
+# When you last changed this notice, in plain words.
+updated: Friday 13 November, 10:00
+
+# When the notice should disappear by itself: year-month-day hour:minute.
+# Always set this, so a forgotten notice cannot stay up for weeks.
+expires: 2026-11-14 18:00
+
+# Optional web address for a "More details" button (for example Microsoft's
+# status page). Leave empty for no button.
+link:
