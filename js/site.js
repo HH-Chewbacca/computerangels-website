@@ -351,3 +351,21 @@
     })
     .catch(function () { /* no announcement file, or offline: show nothing */ });
 })();
+
+// Contact page map: nothing is loaded from Google until the visitor presses "Show map".
+(function () {
+  var btn = document.getElementById('map-show');
+  var box = document.getElementById('map-box');
+  if (!btn || !box) return;
+  btn.addEventListener('click', function () {
+    var f = document.createElement('iframe');
+    f.className = 'map';
+    f.title = 'Map showing Computer Angels at 160 Munster Road, Fulham';
+    f.setAttribute('loading', 'lazy');
+    f.setAttribute('referrerpolicy', 'no-referrer');
+    f.src = 'https://www.google.com/maps?q=Computer+Angels,+160+Munster+Road,+London+SW6+5RA&output=embed';
+    btn.parentNode.replaceChild(f, btn);
+    box.classList.add('shown');
+    f.focus();
+  });
+})();

@@ -563,3 +563,11 @@ p { margin: 0 0 14px; }
 }
 /* Menu row just after the hamburger disappears: slightly tighter so five links always fit */
 @media (min-width: 640px) and (max-width: 759px) { .nav a { padding: 16px 12px; } }
+
+/* Contact page: map loads only on request; Trustpilot is a plain link */
+.map-box { border: 2px solid #000; border-radius: 8px; padding: 16px; background: var(--grey); margin-bottom: 14px; }
+.map-box p { margin: 0 0 10px; }
+.map-box .note { margin: 12px 0 0; }
+.map-box .btn { font: inherit; font-weight: 700; cursor: pointer; }
+.map-box .map { border: 0; border-radius: 6px; margin-bottom: 10px; flex-basis: 100%; }
+.tp-link { font-weight: 700; }
