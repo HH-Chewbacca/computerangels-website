@@ -151,9 +151,14 @@
     var text = crawl.querySelector('.crawl-text');
     if (text) {
       var line = parseFloat(window.getComputedStyle(text).lineHeight) || 40;
-      var distance = crawl.clientHeight + text.offsetHeight * 1.25;
       var pace = window.innerWidth < 640 ? 0.56 : 0.42; // narrow screens have shorter lines, so move a little faster
-      text.style.animationDuration = Math.round(distance / (line * pace)) + 's';
+      var speed = line * pace; // pixels a second
+      // The last line fades out at the horizon when the text's bottom edge is about a fifth
+      // of the way down the stage. Stop about five seconds after that, then start again.
+      var stageH = crawl.clientHeight;
+      var endY = text.offsetHeight - stageH * 0.2 + speed * 5;
+      text.style.setProperty('--crawl-end', '-' + Math.round(endY) + 'px');
+      text.style.animationDuration = Math.round((stageH + endY) / speed) + 's';
     }
     void crawl.offsetWidth;
     crawl.classList.add('run');

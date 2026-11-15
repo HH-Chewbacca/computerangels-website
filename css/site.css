@@ -401,7 +401,7 @@ p { margin: 0 0 14px; }
 .crawl-stage::after { height: 34%; background: linear-gradient(#000 35%, rgba(0, 0, 0, 0)); }
 .crawl-stage.run .crawl-logo { animation: crawl-logo 7s cubic-bezier(.12, .5, .45, 1) 4.4s forwards; }
 .crawl-stage.run .crawl-text { animation: crawl-roll 70s linear 8.5s infinite; }
-@keyframes crawl-roll { from { top: 100%; transform: translate(-50%, 0); } to { top: 0; transform: translate(-50%, -125%); } }
+@keyframes crawl-roll { from { top: 100%; transform: translate(-50%, 0); } to { top: 0; transform: translate(-50%, var(--crawl-end, -125%)); } }
 @media (prefers-reduced-motion: reduce) {
   .crawl-stage { perspective: none; }
   .crawl-plane { transform: none; }
