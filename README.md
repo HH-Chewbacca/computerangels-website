@@ -2,7 +2,7 @@
 
 Public website for Computer Angels Ltd (computerangels.co.uk).
 
-- Plain HTML and CSS. No build step, no framework.
+- Plain HTML and CSS. No build step, no framework. The one exception is `worker/index.js`, a small script on Cloudflare that answers `/status.json` for automatic announcements (see below).
 - Hosted on Cloudflare (Workers static assets) from `main`; settings are in `wrangler.jsonc`, old-address forwards in `_redirects`, and files kept off the public site in `.assetsignore`. Live at https://www.computerangels.co.uk since 13 Nov 2026; the address without www redirects to it (Cloudflare redirect rule). If GitHub Pages is still switched on for this repo, switch it off.
 - `html_handling` is `none` on purpose so pages keep their exact `.html` addresses. Do not change it without testing: the default strips `.html` with temporary redirects.
 - Forms post to Web3Forms. The access key in the HTML is public by design.
@@ -22,6 +22,15 @@ Everything is in one file: `announcement.txt`.
 - **High** pops up over the page once per visitor, then stays as a strip. **Moderate** and **low** are a strip only.
 - If the file has a mistake (a misspelt severity, a missing headline) the site shows nothing rather than something broken, so check the live site after posting.
 - A visitor who closes the strip will not see that announcement again. Changing the headline or the `updated` line counts as a new announcement and shows it to everyone again.
+
+## Automatic announcements (StatusGator)
+
+- `worker/index.js` asks StatusGator (free plan, three monitors) which watched services are down, at most once every three minutes, and publishes ready-worded notices at `/status.json`.
+- The StatusGator token is a Cloudflare secret named `STATUSGATOR_TOKEN` (Workers & Pages, computerangels-website, Settings, Variables and Secrets). It is read-only and must never be put in this repository.
+- Switch on or off with the `auto:` line in `announcement.txt`. Automatic notices are a strip only, show only for a service that is fully "down", and clear by themselves. A hand-written notice always wins.
+- To choose which parts of a service count (for example only Exchange and Teams), filter the monitor's components in StatusGator; no change is needed here.
+- To see a sample, add `#psa-test` or `#psa-test-apple` to any page address. `/status.json` shows what the checker currently sees (`"configured": false` means the token is missing).
+- Wording for each service is in the `KNOWN` list at the top of `worker/index.js`.
 
 ## Sound credits
 

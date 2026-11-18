@@ -12,6 +12,13 @@
 # yes or no
 show: no
 
+# AUTOMATIC NOTICES: yes or no.
+# With "yes", the site posts its own notice (a strip, never a pop-up) when
+# StatusGator reports that a service we watch is DOWN, and removes it when the
+# service recovers. A notice you write below with "show: yes" always wins.
+# To see what one looks like, add #psa-test to the end of any page address.
+auto: no
+
 # high      = pops up over the page (use sparingly)
 # moderate  = strip across the top of the page
 # low       = strip across the top of the page

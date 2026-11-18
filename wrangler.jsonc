@@ -1,10 +1,16 @@
-// Cloudflare Workers settings for the Computer Angels website (static files only, no code).
+// Cloudflare Workers settings for the Computer Angels website.
+// The site is plain files. worker/index.js is the only code: it answers /status.json
+// for the automatic Public Service Announcements and passes everything else to the files.
 {
   "name": "computerangels-website",
   "compatibility_date": "2026-11-12",
+  "main": "worker/index.js",
+  // Keep anything set by hand in the Cloudflare dashboard (such as the StatusGator token) across deploys.
+  "keep_vars": true,
   "assets": {
     // Publish the repository root as the site.
     "directory": "./",
+    "binding": "ASSETS",
     // Serve pages at their exact .html addresses, as on the old site (no stripping of ".html").
     "html_handling": "none",
     // Unknown addresses show 404.html.

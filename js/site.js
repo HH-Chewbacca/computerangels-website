@@ -142,6 +142,7 @@
 // Reads /announcement.txt (plain "word: value" lines). If "show" is yes and the
 // notice has not expired, shows it on every page: HIGH pops up once, then sits as
 // a strip; MODERATE and LOW are a strip. All text is inserted as plain text.
+// With "auto: yes" in that file, outages reported by StatusGator show by themselves.
 // ---------------------------------------------------------------------------
 (function () {
   var me = document.currentScript;
@@ -229,7 +230,7 @@
 
   function build(a) {
     var level = LEVELS[a.severity];
-    var id = [a.severity, a.headline, a.updated].join('|');
+    var id = a.id || [a.severity, a.headline, a.updated].join('|');
     var link = safeLink(a.link);
 
     // ---- the full card, shown in a dialog
@@ -341,15 +342,35 @@
     if (a.severity === 'high' && store('ca-psa-seen') !== id && store('ca-psa-hidden') !== id) open();
   }
 
+  // Automatic announcements. /status.json is written by the site's Cloudflare worker
+  // from StatusGator: it lists a ready-worded notice for each watched service that is
+  // down. They show only when announcement.txt says "auto: yes" and there is no
+  // hand-written notice, which always wins. Adding #psa-test (or #psa-test-apple) to
+  // any page address shows a sample, marked TEST ONLY.
+  function automatic(allowed) {
+    var m = (window.location.hash || '').match(/^#psa-test(?:-([a-z]+))?$/);
+    if (!m && !allowed) return;
+    var url;
+    try { url = new URL('../status.json' + (m ? '?test=' + (m[1] || 'microsoft') : ''), me.src).href; } catch (e) { return; }
+    fetch(url, { cache: m ? 'no-store' : 'default' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) {
+        var a = data && data.announcements && data.announcements[0];
+        if (!a || !LEVELS[a.severity] || !a.headline) return;
+        build(a);
+      })
+      .catch(function () { /* status feed unavailable: show nothing */ });
+  }
+
   fetch(fileUrl, { cache: 'no-store' })
     .then(function (r) { return r.ok ? r.text() : ''; })
     .then(function (text) {
       var a = parse(text);
       a.severity = (a.severity || '').toLowerCase();
-      if (!/^(yes|y|true|on)$/i.test(a.show || '') || !LEVELS[a.severity] || !a.headline || expired(a.expires)) return;
-      build(a);
+      if (/^(yes|y|true|on)$/i.test(a.show || '') && LEVELS[a.severity] && a.headline && !expired(a.expires)) { build(a); return; }
+      automatic(/^(yes|y|true|on)$/i.test(a.auto || ''));
     })
-    .catch(function () { /* no announcement file, or offline: show nothing */ });
+    .catch(function () { automatic(false); });
 })();
 
 // ---------------------------------------------------------------------------
