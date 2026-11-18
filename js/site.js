@@ -348,7 +348,7 @@
   // hand-written notice, which always wins. Adding #psa-test (or #psa-test-apple, or
   // either with -warn on the end) to any page address shows a sample, marked TEST ONLY.
   function automatic(allowed) {
-    var m = (window.location.hash || '').match(/^#psa-test(?:-(microsoft|apple|google))?(-warn)?$/);
+    var m = (window.location.hash || '').match(/^#psa-test(?:-(microsoft|apple|google|cloudflare|aws|dropbox))?(-warn)?$/);
     if (!m && !allowed) return;
     var url;
     try { url = new URL('../status.json' + (m ? '?test=' + (m[1] || 'microsoft') + (m[2] ? '&level=warn' : '') : ''), me.src).href; } catch (e) { return; }

@@ -25,11 +25,12 @@ Everything is in one file: `announcement.txt`.
 
 ## Automatic announcements (StatusGator)
 
-- `worker/index.js` asks StatusGator (free plan, three monitors) which watched services are down, at most once every three minutes, and publishes ready-worded notices at `/status.json`.
+- `worker/index.js` asks StatusGator (free plan, three monitors) which watched services have problems, at most once every three minutes, and publishes ready-worded notices at `/status.json`.
+- It also reads four official status feeds directly, with no token and no monitor limit: Google Workspace, Cloudflare, Amazon Web Services and Dropbox. These post for major outages only (never warnings). The rules for what counts as major are next to each feed in `worker/index.js`.
 - The StatusGator token is a Cloudflare secret named `STATUSGATOR_TOKEN` (Workers & Pages, computerangels-website, Settings, Variables and Secrets). It is read-only and must never be put in this repository.
 - Switch on or off with the `auto:` line in `announcement.txt`. Automatic notices are a strip only and clear by themselves: a service that is "down" gets a MODERATE strip, one with a "warn" status gets a LOW strip. If several services have problems the page shows the most serious and names the others. A hand-written notice always wins.
 - To choose which parts of a service count (for example only Exchange and Teams), filter the monitor's components in StatusGator; no change is needed here.
-- To see a sample, add `#psa-test`, `#psa-test-apple` or `#psa-test-apple-warn` to any page address. `/status.json` shows what the checker currently sees (`"configured": false` means the token is missing).
+- To see a sample, add `#psa-test`, `#psa-test-apple`, `#psa-test-apple-warn`, `#psa-test-cloudflare`, `#psa-test-aws` or `#psa-test-dropbox` to any page address. `/status.json` shows what the checker currently sees (`"configured": false` means the token is missing; `sources` shows which feeds answered).
 - Wording for each service is in the `KNOWN` list at the top of `worker/index.js`.
 
 ## Sound credits
