@@ -345,13 +345,13 @@
   // Automatic announcements. /status.json is written by the site's Cloudflare worker
   // from StatusGator: it lists a ready-worded notice for each watched service that is
   // down. They show only when announcement.txt says "auto: yes" and there is no
-  // hand-written notice, which always wins. Adding #psa-test (or #psa-test-apple) to
-  // any page address shows a sample, marked TEST ONLY.
+  // hand-written notice, which always wins. Adding #psa-test (or #psa-test-apple, or
+  // either with -warn on the end) to any page address shows a sample, marked TEST ONLY.
   function automatic(allowed) {
-    var m = (window.location.hash || '').match(/^#psa-test(?:-([a-z]+))?$/);
+    var m = (window.location.hash || '').match(/^#psa-test(?:-(microsoft|apple|google))?(-warn)?$/);
     if (!m && !allowed) return;
     var url;
-    try { url = new URL('../status.json' + (m ? '?test=' + (m[1] || 'microsoft') : ''), me.src).href; } catch (e) { return; }
+    try { url = new URL('../status.json' + (m ? '?test=' + (m[1] || 'microsoft') + (m[2] ? '&level=warn' : '') : ''), me.src).href; } catch (e) { return; }
     fetch(url, { cache: m ? 'no-store' : 'default' })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (data) {
