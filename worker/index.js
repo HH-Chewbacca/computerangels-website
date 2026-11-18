@@ -19,8 +19,8 @@ const KNOWN = [
     key: 'microsoft-365',
     headline: 'Microsoft 365 is having problems',
     happening: 'Microsoft is reporting a fault with Microsoft 365. Email, Teams and OneDrive may be slow or unavailable.',
-    warnHeadline: 'Microsoft 365 is reporting some problems',
-    warnHappening: 'Microsoft is reporting a problem with part of Microsoft 365. Most things should still work, but some may be slow or not working.',
+    warnHeadline: 'Some problems reported with Microsoft 365',
+    warnHappening: 'Problems are being reported with part of Microsoft 365. Most things should still work, but some may be slow or not working.',
     scope: '365 customers only',
     link: 'https://status.cloud.microsoft/'
   },
@@ -29,8 +29,8 @@ const KNOWN = [
     key: 'apple',
     headline: 'Apple services are having problems',
     happening: 'Apple is reporting a fault with its online services. iCloud, Apple Mail and the App Store may be slow or unavailable.',
-    warnHeadline: 'Apple is reporting some problems',
-    warnHappening: 'Apple is reporting a problem with some of its online services. Most things should still work, but some may be slow or not working.',
+    warnHeadline: 'Some problems reported with Apple services',
+    warnHappening: 'Problems are being reported with some of Apple\'s online services. Most things should still work, but some may be slow or not working.',
     scope: 'Apple users only',
     link: 'https://www.apple.com/uk/support/systemstatus/'
   },
@@ -39,8 +39,8 @@ const KNOWN = [
     key: 'google',
     headline: 'Google services are having problems',
     happening: 'Google is reporting a fault with its online services. Gmail, Calendar and Drive may be slow or unavailable.',
-    warnHeadline: 'Google is reporting some problems',
-    warnHappening: 'Google is reporting a problem with some of its online services. Most things should still work, but some may be slow or not working.',
+    warnHeadline: 'Some problems reported with Google services',
+    warnHappening: 'Problems are being reported with some of Google\'s online services. Most things should still work, but some may be slow or not working.',
     scope: 'Google users only',
     link: 'https://www.google.com/appsstatus/dashboard/'
   }
@@ -73,6 +73,8 @@ function clean(text, max) {
 }
 
 // level is 'down' (a full outage: MODERATE strip) or 'warn' (a partial problem: LOW strip).
+// A warning can come from StatusGator's own early detection before the provider admits
+// anything, so the warn wording says problems "are being reported", not who reported them.
 function announcement(monitor, level, downParts, now, test) {
   const name = clean(monitor.display_name, 60) || 'A service';
   const known = KNOWN.find((k) => k.match.test(name));
@@ -82,8 +84,8 @@ function announcement(monitor, level, downParts, now, test) {
     key: known.key, headline: warn ? known.warnHeadline : known.headline, happening: warn ? known.warnHappening : known.happening, scope: known.scope, link: known.link
   } : {
     key: name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-    headline: name + (warn ? ' is reporting some problems' : ' is having problems'),
-    happening: warn ? name + ' is reporting a problem. Most things should still work, but some may be slow or not working.' : name + ' is reporting a fault. It may be slow or unavailable.',
+    headline: warn ? 'Some problems reported with ' + name : name + ' is having problems',
+    happening: warn ? 'Problems are being reported with ' + name + '. Most things should still work, but some may be slow or not working.' : name + ' is reporting a fault. It may be slow or unavailable.',
     scope: name + ' users only',
     link: ''
   };
@@ -141,7 +143,7 @@ async function liveStatus(env, ctx, origin) {
   // The page shows one notice: the most serious. It mentions any others by name.
   announcements.sort((x, y) => (x.severity === y.severity ? 0 : x.severity === 'moderate' ? -1 : 1));
   if (announcements.length > 1) {
-    announcements[0].happening += ' Also reporting problems: ' + announcements.slice(1).map((x) => x.name).join(', ') + '.';
+    announcements[0].happening += ' Problems are also reported with: ' + announcements.slice(1).map((x) => x.name).join(', ') + '.';
   }
   return { configured: true, ok: true, checked: now.toISOString(), services: services, announcements: announcements };
 }
