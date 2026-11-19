@@ -4,3 +4,6 @@
 /hardware-software-procurement.html /cloud-backup-livedrive.html 301
 # Serve the home page at the bare address (needed because ".html" stripping is switched off).
 / /index.html 200
+# The "page not found" animation at a shareable address that answers as a normal page,
+# so message apps show a preview card. Every other missing address still shows it too.
+/lost /404.html 200

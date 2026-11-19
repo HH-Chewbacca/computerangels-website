@@ -33,6 +33,10 @@ Everything is in one file: `announcement.txt`.
 - To see a sample, add `#psa-test`, `#psa-test-apple`, `#psa-test-apple-warn`, `#psa-test-cloudflare`, `#psa-test-aws` or `#psa-test-dropbox` to any page address. `/status.json` shows what the checker currently sees (`"configured": false` means the token is missing; `sources` shows which feeds answered).
 - Wording for each service is in the `KNOWN` list at the top of `worker/index.js`.
 
+## Sharing the "page not found" animation
+
+Share `https://www.computerangels.co.uk/lost`. It shows `404.html` but answers as a normal page, so message apps show a preview card (`images/lost-card.jpg`). It is hidden from search engines. Any missing address, including `/404`, still shows the same animation.
+
 ## Sound credits
 
 The party sounds on the 404 page are in `audio/`, supplied by Peter (file names suggest Pixabay): party blower by floraphonic, fireworks by DRAGON-STUDIO, applause and cheer by driken5482. Trimmed and re-encoded at 128 kbps. The story scene's music is `audio/story-theme.mp3`: "The Path of the Force" by luis_humanoide, full length at 96 kbps.
